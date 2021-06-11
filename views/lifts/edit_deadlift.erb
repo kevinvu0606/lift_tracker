@@ -1,0 +1,24 @@
+<form action="/deadlift/<%= item["id"] %>" method="POST">
+  <input type="hidden" name="_method" value="PUT">
+  <label for="weight">
+      Weight:
+  </label>
+  <input name="weight" value="<%= item["weight"] %>"/>
+
+  <label for="reps">
+      Reps:
+  </label>
+  <input name="reps" value="<%= item["reps"] %>" />
+
+  <label for="date">
+      Date:
+  </label>
+  <input name="date" type = date value="<%= item["date"] %>" />
+
+  <input type="submit" value="Update record" />
+</form>
+
+<form action="/deadlift/<%= item["id"] %>" method="POST">
+  <input type="hidden" name="_method" value="DELETE" />
+  <input type="submit" value="Delete" />
+</form>

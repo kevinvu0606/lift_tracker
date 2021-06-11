@@ -1,0 +1,11 @@
+<h1>Welcome, <%= current_user %> ! </h1>
+<h1> Select the lift for more details</h1>
+<br>
+<form action='/logout' method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Logout"/>
+</form>
+<br>
+<h1><a href="/bpress"> Bench Press</a> </h1>
+<h1><a href="/squat"> Squat</a> </h1>
+<h1><a href="/deadlift"> Deadlift</a> </h1>
