@@ -1,50 +1,55 @@
+<header>
 <h1>Squat Details!</h1> 
-
 <% results.each do |i| %>
       <h2>Your current <%= i["reps"] %> rep max is <%= i["weight"] %> and was performed on the <%= i["date"] %></h2>
 <% end %>
+</header>
 
+<main>
+  <div class="graph"
+  <%= line_chart(data_array)%>
+  </div>
 
-<table>
-  <tr>
-    <th> Reps</th>
-    <th> Weights</th>
-    <th> Date</th>
-    <th> Edit</th>
-  </tr>
-    <% results2.each do |i| %>
-    <tr>
-    <td><%= i["reps"] %></td>
-    <td><%= i["weight"] %></td>
-    <td><%= i["date"] %></td>
-    <td><a href="/squat/<%= i["id"] %>/edit"> Edit </a></td>
-    </tr>
-    <% end %>
-</table>
+  <div class="edit">
+    <form action="/squat" method="POST">
+      <label for="weight">
+          Weight:
+      </label>
+      <input name="weight"/>
 
+      <label for="reps">
+          Reps:
+      </label>
+      <input name="reps" />
 
+      <label for="Date">
+          Date:
+      </label>
+      <input name="date" type="date"/>
 
+      <input type="submit" value="Add New Record" />
+    </form>
+    </div>
 
-<br>
-
-<form action="/squat" method="POST">
-  <label for="weight">
-      Weight:
-  </label>
-  <input name="weight"/>
-
-  <label for="reps">
-      Reps:
-  </label>
-  <input name="reps" />
-
-  <label for="Date">
-      Date:
-  </label>
-  <input name="date" type="date"/>
-
-  <input type="submit" value="Add New Record" />
-</form>
-
-
-
+  <div class="dropdown">
+    <span>Lift Records</span>
+    <div class="dropdown-content">
+      <table>
+        <tr>
+          <th> Reps</th>
+          <th> Weights</th>
+          <th> Date</th>
+          <th> Edit</th>
+        </tr>
+          <% results2.each do |i| %>
+          <tr>
+          <td><%= i["reps"] %></td>
+          <td><%= i["weight"] %></td>
+          <td><%= i["date"] %></td>
+          <td><a href="/squat/<%= i["id"] %>/edit"> Edit </a></td>
+          </tr>
+          <% end %>
+      </table>
+    </div>
+  </div>
+</main>

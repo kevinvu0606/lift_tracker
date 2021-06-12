@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'pg'
-
+require 'chartkick'
 
 enable :sessions
 
@@ -12,9 +12,6 @@ require_relative 'models/records'
 require_relative 'controllers/sessions_controller'
 require_relative 'controllers/user_controller'
 require_relative 'helpers/sessions'
-
-
-
 
 get '/' do
   erb :index
@@ -45,16 +42,19 @@ get '/bpress' do
 
   ########graph - ggraph data visualization
   query_x = "SELECT date, weight FROM bpress WHERE user_id = $1 and reps = 1"
-  #  returns an array of Hashes with each data point being 1 hash
   axis = run_sql(query_x, user_id)
   data = []
-
+  y_axis = []
+  x_axis = []
   axis.each do |i|
-    data.push([i['date'], i['weight'].to_i])
+    data.push(i['date'])
+    y_axis.push(i['weight'].to_i)
+    x_axis.push(i['date'])
   end
+  data_array = x_axis.zip(y_axis)
   ######################
 
-  erb :'/lifts/bpress', locals: {results: results, results2: results2, axis: axis, data: data}
+  erb :'/lifts/bpress', locals: {results: results, results2: results2, data_array: data_array}
 end
 
 get '/bpress/:id/edit' do |id|
@@ -70,7 +70,24 @@ get '/squat' do
   user_id = [session[:user_id]]
   results = run_sql(query1, user_id)
   results2 = run_sql(query2, user_id)
-  erb :'/lifts/squat', locals: {results: results, results2: results2}
+
+  # 
+  query_x = "SELECT date, weight FROM squat WHERE user_id = $1 and reps = 1"
+  #  returns an array of Hashes with each data point being 1 hash
+  axis = run_sql(query_x, user_id)
+  data = []
+  y_axis = []
+  x_axis = []
+
+  axis.each do |i|
+    data.push(i['date'])
+    y_axis.push(i['weight'].to_i)
+    x_axis.push(i['date'])
+  end
+
+  data_array = x_axis.zip(y_axis)
+  # 
+  erb :'/lifts/squat', locals: {results: results, results2: results2, data_array: data_array}
 end
 
 get '/squat/:id/edit' do |id|
@@ -86,8 +103,23 @@ get '/deadlift' do
   user_id = [session[:user_id]]
   results = run_sql(query1, user_id)
   results2 = run_sql(query2, user_id)
-  erb :'/lifts/deadlift', locals: {results: results, results2: results2}
+# 
+query_x = "SELECT date, weight FROM deadlift WHERE user_id = $1 and reps = 1"
+  #  returns an array of Hashes with each data point being 1 hash
+  axis = run_sql(query_x, user_id)
+  data = []
+  y_axis = []
+  x_axis = []
 
+  axis.each do |i|
+    data.push(i['date'])
+    y_axis.push(i['weight'].to_i)
+    x_axis.push(i['date'])
+  end
+
+  data_array = x_axis.zip(y_axis)
+
+  erb :'/lifts/deadlift', locals: {results: results, results2: results2, data_array: data_array}
 end
 
 get '/deadlift/:id/edit' do |id|
@@ -213,4 +245,21 @@ delete '/bpress/:id' do |id|
   params = [id]
   run_sql( query, params )
   redirect "/bpress"
+end
+
+
+delete '/squat/:id' do |id|
+  # Run a DELETE SQL QUERY
+  query = "DELETE FROM squat WHERE id = $1"
+  params = [id]
+  run_sql( query, params )
+  redirect "/squat"
+end
+
+delete '/deadlift/:id' do |id|
+  # Run a DELETE SQL QUERY
+  query = "DELETE FROM deadlift WHERE id = $1"
+  params = [id]
+  run_sql( query, params )
+  redirect "/deadlift"
 end
