@@ -1,17 +1,27 @@
 <h1> Login </h1>
+<br>
+<br>
 
 <%= error_message %>
 
-<form action="/login" method="POST">
-  <label for="email">
-      email:
-  </label>
-  <input type="text" name="email" />
-
+<div class='loginpage'>
+  <div class='email'>
+  <form action="/login" method="POST">
+    <label for="email">
+        Email:
+    </label>
+    <input type="text" name="email" />
+  </div>
+  <br>
+  <div class='password'>
   <label for="password">
-    password:
+    Password:
   </label>
   <input type="password" name="password" />
-
-  <input type="submit" value="Login" />
+  </div>
+  <br>
+  <div id='loginsubmit'>
+    <input type="submit" value="Login" />
+  </div>
 </form>
+</div>
