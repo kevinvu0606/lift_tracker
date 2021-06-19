@@ -1,14 +1,13 @@
-# get '/sign-up' do
-#   erb :'/users/new'
-# end
+get '/sign-up' do
+  erb :new_user
+end
 
-# post '/sign-up' do 
-#   first_name = params[:first_name]
-#   surname = params[:surname]
-#   email = params[:email]
-#   password = params[:password]
+get '/main-dashboard' do
+  user_id = session[:user_id].to_i
+  user = user_name(user_id)
+  erb :'dash-board' , locals: {current_user: user}
+end
 
-#   create_user(first_name, surname, email, password)
-
-#   redirect '/food'
-# end
+get '/login' do
+  erb :login, locals: { error_message: ''}
+end

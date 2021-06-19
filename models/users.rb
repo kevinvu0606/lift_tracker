@@ -17,3 +17,12 @@ def find_user( email )
       return nil
    end
 end
+
+
+def user_name ( id )
+   sql_query = "SELECT * FROM users WHERE id = $1"
+   params = [ id ]
+   results = run_sql(sql_query, params)
+   results_name = results[0]['first_name']
+   return results_name
+end
