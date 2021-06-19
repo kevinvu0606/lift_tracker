@@ -140,7 +140,7 @@ post '/sign-up' do
 
   create_user(first_name, surname, email, password)
 
-  redirect '/main-dashboard'
+  redirect '/login'
 end
 
 delete '/logout' do
