@@ -43,7 +43,7 @@ I created a web application that tracked metrics for lifts based on user input
 ## Additionals:
 - I used an API( chartkick ) for data visulization to display a graph showing growth of 1 rep maxes
 
-## essons Learned:
+## Lessons Learned:
 - better planning for the styling of the pages will lead to less clutter + easier managing of class/id's and less conflicts in name
 
 
